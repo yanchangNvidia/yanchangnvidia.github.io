@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#ffffff">
+    <meta property="og:title" content="Yan Chang — Robotics &amp; Physical AI">
+    <meta property="og:description" content="Research in robot learning, world models, humanoid control, and cross-embodiment mobility.">
+    <meta property="og:type" content="website">
+    <meta name="description" content="Yan Chang — research, publications, and patents in robotics and artificial intelligence.">
+    <title>Yan Chang — Research</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="styles.css">
+    <script src="data.js" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div class="page-shell">
+      <header class="site-header">
+        <a class="site-name" href="#research" aria-label="Yan Chang, Research">Yan Chang<span class="name-period" aria-hidden="true">.</span></a>
+        <nav class="primary-nav" aria-label="Main navigation">
+          <a href="#research" data-route="research" aria-current="page">Research</a>
+          <a href="#patents" data-route="patents">Patents</a>
+          <a href="#about" data-route="about">About</a>
+        </nav>
+      </header>
+
+      <main id="main" tabindex="-1">
+        <div id="loading" class="loading" role="status">Loading research…</div>
+        <div id="load-error" class="load-error" hidden>
+          <h1>Yan Chang</h1>
+          <p>The research collection could not be loaded. Please refresh the page.</p>
+          <a href="https://scholar.google.com/citations?user=vcU93tYAAAAJ&amp;hl=en" target="_blank" rel="noopener noreferrer">View Google Scholar <span aria-hidden="true">↗</span></a>
+        </div>
+
+        <section id="research" class="page-panel" aria-labelledby="profile-name" hidden>
+          <div class="profile">
+            <div class="profile-copy">
+              <p class="eyebrow">Robotics &amp; Artificial Intelligence</p>
+              <h1 id="profile-name">Yan Chang</h1>
+              <p id="profile-role" class="profile-role"></p>
+              <div id="profile-bio" class="profile-bio"></div>
+              <div id="profile-links" class="profile-links" aria-label="Profile links"></div>
+            </div>
+            <figure class="profile-portrait">
+              <img id="profile-photo" src="assets/yan-chang.webp" alt="Yan Chang" width="180" height="208">
+              <figcaption id="portrait-caption"></figcaption>
+            </figure>
+          </div>
+
+          <section id="news-section" class="news-section" aria-labelledby="news-title" hidden>
+            <h2 id="news-title">News</h2>
+            <div id="news-list" class="news-list"></div>
+          </section>
+
+          <section class="publications-section" aria-labelledby="publications-title">
+            <div class="section-heading">
+              <h2 id="publications-title">Publications <span class="heading-range">2021–2026</span></h2>
+              <a class="quiet-link scholar-link" href="https://scholar.google.com/citations?user=vcU93tYAAAAJ&amp;hl=en" target="_blank" rel="noopener noreferrer">Google Scholar <span aria-hidden="true">↗</span></a>
+            </div>
+            <div class="collection-toolbar">
+              <div id="publication-years" class="filter-list" role="group" aria-label="Filter publications by year"></div>
+              <div class="search-field">
+                <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.6" cy="8.6" r="5.5"></circle><path d="m12.7 12.7 4 4"></path></svg>
+                <label class="visually-hidden" for="publication-search">Search publications</label>
+                <input id="publication-search" type="search" placeholder="Search publications" autocomplete="off">
+              </div>
+            </div>
+            <p id="publication-count" class="result-count" role="status" aria-live="polite" aria-atomic="true"></p>
+            <div id="publication-list" class="publication-list"></div>
+            <div id="publication-empty" class="empty-state" hidden>
+              <p>No publications match your search.</p>
+              <button type="button" class="text-button" id="publication-reset">Clear filters</button>
+            </div>
+          </section>
+        </section>
+
+        <section id="patents" class="page-panel" aria-labelledby="patents-title" hidden>
+          <div class="page-heading">
+            <p class="eyebrow">Inventions</p>
+            <h1 id="patents-title">Patents</h1>
+            <p id="patents-intro" class="page-intro"></p>
+          </div>
+          <div class="collection-toolbar patents-toolbar">
+            <div class="filter-list" id="patent-filters" role="group" aria-label="Filter patents by status">
+              <button type="button" class="filter-chip is-active" data-patent-filter="all" aria-pressed="true">All</button>
+              <button type="button" class="filter-chip" data-patent-filter="grant" aria-pressed="false">Grants</button>
+              <button type="button" class="filter-chip" data-patent-filter="application" aria-pressed="false">Applications</button>
+            </div>
+            <div class="search-field">
+              <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.6" cy="8.6" r="5.5"></circle><path d="m12.7 12.7 4 4"></path></svg>
+              <label class="visually-hidden" for="patent-search">Search patents</label>
+              <input id="patent-search" type="search" placeholder="Search patents" autocomplete="off">
+            </div>
+          </div>
+          <p id="patent-count" class="result-count" role="status" aria-live="polite" aria-atomic="true"></p>
+          <div id="patent-list" class="patent-list"></div>
+          <div id="patent-empty" class="empty-state" hidden>
+            <p>No patents match your search.</p>
+            <button type="button" class="text-button" id="patent-reset">Clear filters</button>
+          </div>
+        </section>
+
+        <section id="about" class="page-panel about-panel" aria-labelledby="about-title" hidden>
+          <div class="page-heading">
+            <p class="eyebrow">Background &amp; Perspectives</p>
+            <h1 id="about-title">About me</h1>
+          </div>
+          <div id="about-bio" class="about-bio"></div>
+          <div id="research-areas" class="research-areas"></div>
+          <div id="about-background" class="about-background"></div>
+          <section id="writing-section" class="writing-section" aria-labelledby="writing-title" hidden>
+            <div class="section-heading"><h2 id="writing-title">Posts &amp; perspectives</h2></div>
+            <div id="writing-list" class="writing-list"></div>
+          </section>
+          <div id="about-links" class="profile-links about-links"></div>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <span>© <span id="copyright-year">2026</span> <span id="footer-name">Yan Chang</span></span>
+        <div class="footer-links">
+          <a href="https://scholar.google.com/citations?user=vcU93tYAAAAJ&amp;hl=en" target="_blank" rel="noopener noreferrer">Google Scholar <span aria-hidden="true">↗</span></a>
+          <a href="https://www.linkedin.com/in/yanchang1/" target="_blank" rel="noopener noreferrer">LinkedIn <span aria-hidden="true">↗</span></a>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>
