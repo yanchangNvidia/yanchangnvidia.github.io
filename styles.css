@@ -25,10 +25,7 @@ button { cursor: pointer; }
 button:focus-visible, a:focus-visible, input:focus-visible { outline: 2px solid var(--blue); outline-offset: 4px; }
 [hidden] { display: none !important; }
 .page-shell { width: min(1060px, calc(100% - 88px)); margin: 0 auto; }
-.site-header { height: 111px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--line); }
-.site-name { font-size: 23px; font-weight: 650; letter-spacing: -.7px; color: var(--ink); }
-.site-name:hover { color: var(--ink); text-decoration: none; }
-.name-period { color: var(--blue); }
+.site-header { height: 111px; display: flex; justify-content: flex-end; align-items: center; border-bottom: 1px solid var(--line); }
 .primary-nav { display: flex; gap: 35px; align-items: center; height: 100%; }
 .primary-nav a { display: flex; align-items: center; height: 100%; color: #69727d; font-size: 13px; font-weight: 500; position: relative; }
 .primary-nav a:hover { color: var(--blue); text-decoration: none; }
@@ -151,7 +148,6 @@ a.publication-visual:hover img { transform: scale(1.025); }
 @media (max-width: 650px) {
   .page-shell { width: calc(100% - 40px); }
   .site-header { height: 85px; }
-  .site-name { font-size: 21px; }
   .primary-nav { gap: 22px; }
   .primary-nav a { font-size: 12px; }
   .profile { position: relative; display: block; padding: 43px 0 36px; }
