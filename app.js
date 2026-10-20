@@ -284,7 +284,7 @@
       else item.removeAttribute('aria-current');
     });
     const name = state.data?.profile?.name || 'Yan Chang';
-    document.title = `${name} — ${current === 'research' ? 'Research' : current === 'patents' ? 'Patents' : 'About'}`;
+    document.title = `${name} — ${current === 'research' ? 'Publications' : current === 'patents' ? 'Patents' : 'About'}`;
     if (focus) {
       $('main').focus({ preventScroll: true });
       window.scrollTo({ top: 0, behavior: 'instant' });
