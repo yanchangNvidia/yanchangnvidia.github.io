@@ -263,13 +263,19 @@
       return article;
     }));
     $('patents-intro').textContent = state.data.patentsIntro || about.patentsIntro || '';
-    const news = list(state.data.news).slice(0, 3);
+    const news = list(state.data.news);
     $('news-section').hidden = news.length === 0;
     $('news-list').replaceChildren(...news.map(item => {
       const row = element('div', 'news-item');
       row.append(element('span', 'news-date', item.date || ''));
       const content = element('p');
-      content.append(link(item.title || item.text, item.url));
+      if (Array.isArray(item.segments) && item.segments.length) {
+        item.segments.forEach(segment => {
+          content.append(segment.url ? link(segment.text, segment.url) : document.createTextNode(string(segment.text)));
+        });
+      } else {
+        content.append(link(item.title || item.text, item.url));
+      }
       row.append(content);
       return row;
     }));
