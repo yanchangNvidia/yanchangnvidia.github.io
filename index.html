@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#ffffff">
+    <meta name="theme-color" content="#f8f7f3">
     <meta property="og:title" content="Yan Chang — Robotics &amp; Physical AI">
     <meta property="og:description" content="Research in robot learning, world models, humanoid control, and cross-embodiment mobility.">
     <meta property="og:type" content="website">
@@ -18,8 +18,9 @@
     <a class="skip-link" href="#main">Skip to content</a>
     <div class="page-shell">
       <header class="site-header">
+        <a class="site-identity" href="#research" aria-label="Yan Chang — home"><span class="identity-mark" aria-hidden="true">yc.</span><span>Yan Chang</span></a>
         <nav class="primary-nav" aria-label="Main navigation">
-          <a href="#research" data-route="research" aria-current="page">Publications</a>
+          <a href="#research" data-route="research" aria-current="page">Research</a>
           <a href="#patents" data-route="patents">Patents</a>
           <a href="#about" data-route="about">About</a>
         </nav>
@@ -36,26 +37,34 @@
         <section id="research" class="page-panel" aria-labelledby="profile-name" hidden>
           <div class="profile">
             <div class="profile-copy">
-              <p class="eyebrow">Robotics &amp; Artificial Intelligence</p>
+              <p class="eyebrow"><span class="eyebrow-line" aria-hidden="true"></span> Robotics &amp; Physical AI</p>
               <h1 id="profile-name">Yan Chang</h1>
               <p id="profile-role" class="profile-role"></p>
               <div id="profile-bio" class="profile-bio"></div>
               <div id="profile-links" class="profile-links" aria-label="Profile links"></div>
             </div>
             <figure class="profile-portrait">
-              <img id="profile-photo" src="assets/yan-chang.webp" alt="Yan Chang" width="180" height="208">
+              <img id="profile-photo" src="assets/yan-chang.webp" alt="Yan Chang" width="299" height="299" fetchpriority="high">
               <figcaption id="portrait-caption"></figcaption>
             </figure>
           </div>
 
+          <section id="featured-section" class="featured-section" aria-labelledby="featured-title" hidden>
+            <div class="section-heading">
+              <div><p class="eyebrow section-kicker">In focus</p><h2 id="featured-title">Selected research</h2></div>
+              <a class="quiet-link" href="#publications">All publications <span aria-hidden="true">↓</span></a>
+            </div>
+            <div id="featured-grid" class="featured-grid"></div>
+          </section>
+
           <section id="news-section" class="news-section" aria-labelledby="news-title" hidden>
-            <h2 id="news-title">News</h2>
+            <div class="news-heading"><p class="eyebrow section-kicker">Updates</p><h2 id="news-title">Latest news</h2></div>
             <div id="news-list" class="news-list"></div>
           </section>
 
-          <section class="publications-section" aria-labelledby="publications-title">
+          <section id="publications" class="publications-section" aria-labelledby="publications-title">
             <div class="section-heading">
-              <h2 id="publications-title">Publications <span class="heading-range">2021–2026</span></h2>
+              <div><p class="eyebrow section-kicker">Research archive</p><h2 id="publications-title">Publications <span class="heading-range">2021–2026</span></h2></div>
               <a class="quiet-link scholar-link" href="https://scholar.google.com/citations?user=vcU93tYAAAAJ&amp;hl=en" target="_blank" rel="noopener noreferrer">Google Scholar <span aria-hidden="true">↗</span></a>
             </div>
             <div class="collection-toolbar">
@@ -66,7 +75,10 @@
                 <input id="publication-search" type="search" placeholder="Search publications" autocomplete="off">
               </div>
             </div>
-            <p id="publication-count" class="result-count" role="status" aria-live="polite" aria-atomic="true"></p>
+            <div class="collection-meta">
+              <p id="publication-count" class="result-count" role="status" aria-live="polite" aria-atomic="true"></p>
+              <button type="button" id="motion-toggle" class="motion-toggle" aria-pressed="false">Pause animations</button>
+            </div>
             <div id="publication-list" class="publication-list"></div>
             <div id="publication-empty" class="empty-state" hidden>
               <p>No publications match your search.</p>
@@ -118,7 +130,7 @@
       </main>
 
       <footer class="site-footer">
-        <span>© <span id="copyright-year">2026</span> <span id="footer-name">Yan Chang</span></span>
+        <div><a class="footer-identity" href="#research">Yan Chang<span aria-hidden="true">.</span></a><p>Robotics &amp; Physical AI</p><span>© <span id="copyright-year">2026</span> <span id="footer-name">Yan Chang</span></span></div>
         <div class="footer-links">
           <a href="https://scholar.google.com/citations?user=vcU93tYAAAAJ&amp;hl=en" target="_blank" rel="noopener noreferrer">Google Scholar <span aria-hidden="true">↗</span></a>
           <a href="https://www.linkedin.com/in/yanchang1/" target="_blank" rel="noopener noreferrer">LinkedIn <span aria-hidden="true">↗</span></a>

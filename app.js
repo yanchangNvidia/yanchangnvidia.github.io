@@ -1,7 +1,8 @@
 (() => {
   'use strict';
 
-  const state = { data: null, year: 'all', publicationSearch: '', patentFilter: 'all', patentSearch: '' };
+  const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const state = { data: null, year: 'all', publicationSearch: '', patentFilter: 'all', patentSearch: '', motionPaused: motionPreference.matches };
   const $ = id => document.getElementById(id);
   const string = value => value == null ? '' : String(value);
   const list = value => Array.isArray(value) ? value : value ? [value] : [];
@@ -99,6 +100,53 @@
     }));
   }
 
+  function renderFeatured() {
+    const selections = [
+      { id: 'gr00t-2', name: 'GR00T 2', topic: 'Robot foundation models' },
+      { id: 'hydra-0', name: 'Hydra-0', topic: 'World modeling & control' },
+      { id: 'sonic', name: 'SONIC', topic: 'Humanoid whole-body control' }
+    ];
+    const cards = selections.flatMap(selection => {
+      const item = state.data.publications.find(publication => publication.id === selection.id);
+      if (!item) return [];
+      const card = link('', item.project || item.paper, 'featured-card');
+      const media = element('div', 'featured-image' + (item.imageFit === 'contain' ? ' contain' : ''));
+      const img = element('img');
+      img.src = item.poster || item.image;
+      img.alt = item.alt || item.title;
+      img.width = 640;
+      img.height = 384;
+      img.decoding = 'async';
+      media.append(img);
+      const copy = element('div', 'featured-copy');
+      copy.append(element('p', 'featured-topic', selection.topic));
+      const heading = element('h3', '', selection.name);
+      const arrow = element('span', 'featured-arrow', '↗');
+      arrow.setAttribute('aria-hidden', 'true');
+      heading.append(arrow);
+      copy.append(heading);
+      card.append(media, copy);
+      return [card];
+    });
+    $('featured-grid').replaceChildren(...cards);
+    $('featured-section').hidden = cards.length === 0;
+  }
+
+  function updateMotion() {
+    const button = $('motion-toggle');
+    button.textContent = state.motionPaused ? 'Play animations' : 'Pause animations';
+    button.setAttribute('aria-pressed', String(state.motionPaused));
+    document.querySelectorAll('.publication-visual img[data-animation]').forEach(img => {
+      const source = state.motionPaused ? img.dataset.poster : img.dataset.animation;
+      if (img.getAttribute('src') !== source) img.src = source;
+    });
+    document.querySelectorAll('.publication-visual video').forEach(video => {
+      video.autoplay = !state.motionPaused;
+      if (state.motionPaused) video.pause();
+      else if (!document.hidden && !$('research').hidden) video.play().catch(() => {});
+    });
+  }
+
   function publicationNode(item, index) {
     const article = element('article', 'publication' + (!item.image && !item.video ? ' no-visual' : ''));
     if (item.id) article.id = item.id;
@@ -108,13 +156,16 @@
       if (item.imageFit === 'contain') visual.classList.add('contain');
       if (destination) visual.setAttribute('aria-label', `${item.title} — ${item.project ? 'project website' : 'paper'}`);
       const media = document.createElement(item.video ? 'video' : 'img');
-      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      media.src = !item.video && item.poster && reduceMotion ? item.poster : item.video || item.image;
+      media.src = !item.video && item.poster && state.motionPaused ? item.poster : item.video || item.image;
+      if (!item.video && item.poster) {
+        media.dataset.animation = item.image;
+        media.dataset.poster = item.poster;
+      }
       if (item.video) {
         media.muted = true;
         media.loop = true;
         media.playsInline = true;
-        media.autoplay = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        media.autoplay = !state.motionPaused;
         if (item.image) media.poster = item.image;
         media.setAttribute('aria-label', item.alt || item.title);
         media.preload = 'metadata';
@@ -291,13 +342,41 @@
     });
     const name = state.data?.profile?.name || 'Yan Chang';
     document.title = `${name} — ${current === 'research' ? 'Publications' : current === 'patents' ? 'Patents' : 'About'}`;
+    document.querySelectorAll('.publication-visual video').forEach(video => {
+      if (current !== 'research' || state.motionPaused) video.pause();
+      else video.play().catch(() => {});
+    });
     if (focus) {
       $('main').focus({ preventScroll: true });
-      window.scrollTo({ top: 0, behavior: 'instant' });
     }
+    const anchor = current === 'research' && requested !== 'research' ? $(requested) : null;
+    if (anchor && $('research').contains(anchor)) {
+      anchor.scrollIntoView({ behavior: 'instant', block: 'start' });
+      if (focus) {
+        anchor.setAttribute('tabindex', '-1');
+        anchor.focus({ preventScroll: true });
+      }
+    } else if (focus) window.scrollTo({ top: 0, behavior: 'instant' });
   }
 
   function bindControls() {
+    document.querySelector('.skip-link').addEventListener('click', event => {
+      event.preventDefault();
+      $('main').focus({ preventScroll: true });
+      $('main').scrollIntoView({ behavior: 'instant', block: 'start' });
+    });
+    $('motion-toggle').addEventListener('click', () => {
+      state.motionPaused = !state.motionPaused;
+      updateMotion();
+    });
+    motionPreference.addEventListener('change', event => {
+      state.motionPaused = event.matches;
+      updateMotion();
+    });
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) document.querySelectorAll('.publication-visual video').forEach(video => video.pause());
+      else updateMotion();
+    });
     $('publication-search').addEventListener('input', event => { state.publicationSearch = event.target.value; renderPublications(); });
     $('patent-search').addEventListener('input', event => { state.patentSearch = event.target.value; renderPatents(); });
     $('patent-filters').addEventListener('click', event => {
@@ -346,6 +425,7 @@
       state.data.publications = list(state.data.publications).filter(item => Number(item.year) >= 2021 && Number(item.year) <= 2026).sort((a, b) => Number(b.year) - Number(a.year));
       state.data.patents = list(state.data.patents).sort((a, b) => Number(b.year) - Number(a.year));
       renderProfile();
+      renderFeatured();
       renderYearFilters();
       renderPublications();
       renderPatents();
@@ -353,6 +433,7 @@
       bindControls();
       $('loading').hidden = true;
       route();
+      updateMotion();
     } catch (error) {
       $('loading').hidden = true;
       $('load-error').hidden = false;
