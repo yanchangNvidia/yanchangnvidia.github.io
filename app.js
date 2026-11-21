@@ -104,6 +104,7 @@
     const selections = [
       { id: 'gr00t-2', name: 'GR00T 2', topic: 'Robot foundation models' },
       { id: 'hydra-0', name: 'Hydra-0', topic: 'World modeling & control' },
+      { id: 'chord', name: 'CHORD', topic: 'Dexterous manipulation' },
       { id: 'sonic', name: 'SONIC', topic: 'Humanoid whole-body control' }
     ];
     const cards = selections.flatMap(selection => {
