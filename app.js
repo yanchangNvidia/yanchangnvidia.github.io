@@ -323,7 +323,12 @@
       const content = element('p');
       if (Array.isArray(item.segments) && item.segments.length) {
         item.segments.forEach(segment => {
-          content.append(segment.url ? link(segment.text, segment.url) : document.createTextNode(string(segment.text)));
+          const text = segment.url ? link(segment.text, segment.url) : document.createTextNode(string(segment.text));
+          if (segment.bold) {
+            const emphasis = element('strong');
+            emphasis.append(text);
+            content.append(emphasis);
+          } else content.append(text);
         });
       } else {
         content.append(link(item.title || item.text, item.url));
